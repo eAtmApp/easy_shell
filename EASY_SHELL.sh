@@ -75,6 +75,15 @@ function print_replace_color() {
     echo -e "${old_str/$find_str/$LightBlue$find_str$NC}"
 }
 
+#红色输出
+function color_red_print() {
+    local LightRed='\033[1;31m'
+    local LightGreen='\033[1;32m'
+    local LightBlue='\033[1;34m'
+    local NC='\033[0m' # No Color
+    echo -e "$LightRed$*$NC"
+}
+
 #模糊匹配路径- 只能匹配唯一路径
 function cd() {
     debug_update_shell
@@ -87,7 +96,7 @@ function cd() {
         local tmp_list=$(find . -maxdepth 1 -name "*$dir_name*" -type d)
 
         local file_count=$(get_array_size "$tmp_list")
-        
+
         #echo "文件个数:"$file_count
 
         if [ $file_count -eq 1 ]; then
@@ -120,6 +129,12 @@ export ls
 #srv ssh status
 function srv() {
     debug_update_shell
+    
+    if [ "$1" = "" ]; then
+        color_red_print "usage:  srv ServerName start|stop|restart|status"
+        return 1
+    fi
+
     /etc/init.d/$@
 }
 export srv
