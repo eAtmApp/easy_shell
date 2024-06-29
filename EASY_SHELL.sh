@@ -87,7 +87,7 @@ function cd() {
         local tmp_list=$(find . -maxdepth 1 -name "*$dir_name*" -type d)
 
         local file_count=$(get_array_size "$tmp_list")
-
+        
         #echo "文件个数:"$file_count
 
         if [ $file_count -eq 1 ]; then
