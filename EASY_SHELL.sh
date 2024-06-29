@@ -69,7 +69,7 @@ function print_replace_color() {
     local find_str="$1"
     shift
     local old_str="$*"
-    
+
     local LightBlue='\033[1;34m'
     local NC='\033[0m' # No Color
     echo -e "${old_str/$find_str/$LightBlue$find_str$NC}"
@@ -85,20 +85,6 @@ function cd() {
     if [ ! -d "$dir_name" ]; then
 
         local tmp_list=$(find . -maxdepth 1 -name "*$dir_name*" -type d)
-
-        #原版
-        #set_ifs
-        #local arr_string=($tmp_list)
-        #unset_ifs
-        #local file_count=${#arr_string[@]}
-        #echo "个数:" $file_count
-        #if [ $file_count -eq 1 ]; then
-        #dir_name=${tmp_list[0]}
-        #fi
-
-        #for i in $tmp_list; do
-        #echo "测266622试:$i"
-        #done
 
         local file_count=$(get_array_size "$tmp_list")
 
