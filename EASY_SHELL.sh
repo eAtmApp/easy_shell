@@ -15,8 +15,10 @@ export EASY_SHELL_OS_ID=$(awk -F'=' '/^ID=/ {print $2}' /etc/os-release | tr -d 
 if [ "$BASH_SOURCE" != "" ]; then
     EASY_SHELL_SCRIPT_PATH="$(command cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/$(basename "${BASH_SOURCE[0]}")"
 else
+    #openwrt 在source调用脚本时,得不到自身路径
     EASY_SHELL_SCRIPT_PATH="/root/.EASY_SHELL.sh"
 fi
+
 export EASY_SHELL_SCRIPT_PATH
 
 #脚本最后修改时间
@@ -129,7 +131,7 @@ export ls
 #srv ssh status
 function srv() {
     debug_update_shell
-    
+
     if [ "$1" = "" ]; then
         color_red_print "usage:  srv ServerName start|stop|restart|status"
         return 1
