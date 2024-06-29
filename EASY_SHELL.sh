@@ -7,10 +7,10 @@
 
 #shell中执行,即时生效
 #source ~/.bashrc
-
+ 
 #操作系统ID
 export EASY_SHELL_OS_ID=$(awk -F'=' '/^ID=/ {print $2}' /etc/os-release | tr -d '"')
-
+ 
 #导出脚本文件路径
 if [ "$BASH_SOURCE" != "" ]; then
     EASY_SHELL_SCRIPT_PATH="$(command cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/$(basename "${BASH_SOURCE[0]}")"
@@ -18,7 +18,6 @@ else
     #openwrt 在source调用脚本时,得不到自身路径
     EASY_SHELL_SCRIPT_PATH="/root/.EASY_SHELL.sh"
 fi
-
 export EASY_SHELL_SCRIPT_PATH
 
 #脚本最后修改时间
