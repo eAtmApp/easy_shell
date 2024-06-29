@@ -23,11 +23,11 @@ export EASY_SHELL_SCRIPT_PATH
 export EASY_SHELL_SCRIPT_TIME=$(date -r "$EASY_SHELL_SCRIPT_PATH" "+%Y-%m-%d %H:%M:%S")
 
 #调试.自动更新脚本内容到环境
-export EASY_SHELL_SCRIPT_DEBUG=true
+export EASY_SHELL_DEBUG_UPDATE=true
 
 #更新脚本环境
 function update_easy_shell() {
-    if [ "$EASY_SHELL_SCRIPT_DEBUG" = "true" ]; then
+    if [ "$EASY_SHELL_DEBUG_UPDATE" = "true" ]; then
 
         local curtime=$(date -r "$EASY_SHELL_SCRIPT_PATH" "+%Y-%m-%d %H:%M:%S")
 
