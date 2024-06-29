@@ -44,7 +44,6 @@ function set_ifs() {
     IFS=$'\n'
 }
 function unset_ifs() {
-    #echo "原IFS: $oldIFS"
     IFS=$oldIFS
 }
 
@@ -56,11 +55,24 @@ function get_array_size() {
     fi
     echo $(echo "$tmpstr" | wc -l)
 }
+
+#得到按\n分隔的数组项目(index,body)
 function get_array_item() {
     local input_index=$1
     shift
     local file_list="$@"
     echo $(echo "$file_list" | awk -v input_index="$input_index" 'NR==input_index {print $0}')
+}
+
+#以高亮色替换输出(需要替换的内容,源字符串)
+function print_replace_color() {
+    local find_str="$1"
+    shift
+    local old_str="$*"
+    
+    local LightBlue='\033[1;34m'
+    local NC='\033[0m' # No Color
+    echo -e "${old_str/$find_str/$LightBlue$find_str$NC}"
 }
 
 #模糊匹配路径- 只能匹配唯一路径
@@ -90,10 +102,13 @@ function cd() {
 
         local file_count=$(get_array_size "$tmp_list")
 
-        echo "文件个数:"$file_count
+        #echo "文件个数:"$file_count
 
         if [ $file_count -eq 1 ]; then
-            dir_name=$tmp_list
+
+            printf "match enter : "
+            print_replace_color "$dir_name" "$tmp_list"
+            dir_name="$tmp_list"
         fi
     fi
 
@@ -104,8 +119,6 @@ export cd
 
 function ls() {
     debug_update_shell
-
-    #local default_args=()
 
     if [ "$EASY_SHELL_OS_ID" = "openwrt" ]; then
         command ls "--color=auto" "-lA" "-lu" "$@"
