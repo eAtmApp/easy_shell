@@ -26,15 +26,10 @@ export EASY_SHELL_SCRIPT_TIME=$(date -r "$EASY_SHELL_SCRIPT_PATH" "+%Y-%m-%d %H:
 export EASY_SHELL_DEBUG_UPDATE=true
 
 #更新脚本环境
-function update_easy_shell() {
+function debug_update_shell() {
     if [ "$EASY_SHELL_DEBUG_UPDATE" = "true" ]; then
 
         local curtime=$(date -r "$EASY_SHELL_SCRIPT_PATH" "+%Y-%m-%d %H:%M:%S")
-
-        #echo "脚本   :" $EASY_SHELL_SCRIPT_PATH
-        #echo "原时间 :" $EASY_SHELL_SCRIPT_TIME
-        #echo "新时间 :" $curtime
-
         if [ "$EASY_SHELL_SCRIPT_TIME" != "$curtime" ]; then
             echo "脚本已更新,刷新环境变量..."
             source "$EASY_SHELL_SCRIPT_PATH"
@@ -70,7 +65,7 @@ function get_array_item() {
 
 #模糊匹配路径- 只能匹配唯一路径
 function cd() {
-    update_easy_shell
+    debug_update_shell
 
     local dir_name="$1"
     shift
@@ -108,7 +103,7 @@ function cd() {
 export cd
 
 function ls() {
-    update_easy_shell
+    debug_update_shell
 
     #local default_args=()
 
@@ -125,14 +120,14 @@ export ls
 #服务
 #srv ssh status
 function srv() {
-    update_easy_shell
+    debug_update_shell
     /etc/init.d/$@
 }
 export srv
 
 #解压缩文件
 unfile() {
-    update_easy_shell
+    debug_update_shell
 
     local src
 
