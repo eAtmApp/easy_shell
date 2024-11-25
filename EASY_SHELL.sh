@@ -170,7 +170,7 @@ unfile() {
             echo "没有找到需要解压的文件: $1"
             return 1
         fi
-
+ 
         echo "文件个数: $file_count"
 
         if [ $file_count -gt 1 ]; then
@@ -227,7 +227,7 @@ unfile() {
 
     #echo "解压文件-模拟:$src"
     #return 0
-
+ 
     if [[ "$src" == *.tar ]] ||
         [[ "$src" == *.tbz2 ]] ||
         [[ "$src" == *.tgz ]] ||
@@ -235,7 +235,7 @@ unfile() {
         [[ "$src" == *.tar.gz ]] ||
         [[ "$src" == *.tar.xz ]] ||
         [[ "$src" == *.tar.Z ]]; then
-
+ 
         tar xvf $src "$@"
 
     elif [[ "$src" == *.bz2 ]]; then
